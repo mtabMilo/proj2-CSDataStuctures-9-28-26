@@ -1,1 +1,3 @@
 Log activity here
+9/28/26 - 11:38pm - 12:00 am
+    added all the stack methods, no tests yet need to ask if I am formating arrayStack properly with a tail and array
