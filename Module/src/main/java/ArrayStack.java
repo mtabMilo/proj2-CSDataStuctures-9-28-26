@@ -1,14 +1,10 @@
 // ArrayStack
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ArrayStack
-{
-    String[] theStack = new String[10];
+public class ArrayStack<T> {
+    T[] theStack = (T[]) new Object[10];
     int tail = 0; // the index after the latest item in index 1, 2, 3, null, tail = 4
 
-    public void push(String val)
+    public void push(T val)
     {
         if(theStack.length == tail)
         {
@@ -18,18 +14,18 @@ public class ArrayStack
         tail++;
     }
 
-    public String pop()
+    public T pop()
     {
         if (theStack == null || tail == 0)
         {
             throw new IllegalArgumentException("The Stack is empty!");
         }
-        String returns = theStack[tail-1];
+        T returns = theStack[tail-1];
         theStack[tail-1] = null;
         return returns;
     }
 
-    public String peek()
+    public T peek()
     {
         if (theStack == null || tail == 0)
         {

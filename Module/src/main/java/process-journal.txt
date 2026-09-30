@@ -1,3 +1,6 @@
 Log activity here
 9/28/26 - 11:38pm - 12:00 am
     added all the stack methods, no tests yet need to ask if I am formating arrayStack properly with a tail and array
+
+9/29/26 - 4:30pm - 6:00pm
+    Fixed ArrayStack to take any type, no tests yet, started work on parser, did what was needed for AST for now
