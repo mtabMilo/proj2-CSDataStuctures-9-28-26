@@ -4,3 +4,8 @@ Log activity here
 
 9/29/26 - 4:30pm - 6:00pm
     Fixed ArrayStack to take any type, no tests yet, started work on parser, did what was needed for AST for now
+
+9/20/26 - 9:10am - 9:45 am
+    Added Illegal argument exceptions in parser test!
+        doenst properly work need to change it
+        only actually added the first 2
