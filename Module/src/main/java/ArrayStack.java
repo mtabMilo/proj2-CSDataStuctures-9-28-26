@@ -20,8 +20,9 @@ public class ArrayStack<T> {
         {
             throw new IllegalArgumentException("The Stack is empty!");
         }
-        T returns = theStack[tail-1];
-        theStack[tail-1] = null;
+        tail--;
+        T returns = theStack[tail];
+        theStack[tail] = null;
         return returns;
     }
 

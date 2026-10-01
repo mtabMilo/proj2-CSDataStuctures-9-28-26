@@ -9,8 +9,6 @@ public class Parser
         }
         ArrayStack<AST> stack = new ArrayStack<AST>();
         String[] tokens = val.split("\\s+");
-        int countNum = 0;
-        int countOp = 0;
 
 
         for (int i = 0; i < tokens.length; i++)
@@ -18,31 +16,23 @@ public class Parser
             String s = tokens[i];
             if (isOperator(s))
             {
-                countOp++;
-                stack.push(new AST.Binop(s, stack.pop(), stack.pop()));
-                if (i+1 < tokens.length && !isOperator(tokens[i+1]))
+                if (stack.isEmpty())
                 {
-                    if (countNum-1 != countOp)
-                    {
-                        throw new IllegalArgumentException("too many operands");
-                    }
-                    else
-                    {
-                        countOp = 0;
-                        countNum = 0;
-                    }
+                    throw new IllegalArgumentException("insufficient operands");
                 }
-                else if (i == tokens.length-1)
+
+                AST right = stack.pop();
+
+                if (stack.isEmpty())
                 {
-                    if (countNum-1 != countOp)
-                    {
-                        throw new IllegalArgumentException("too many operands");
-                    }
+                    throw new IllegalArgumentException("insufficient operands");
                 }
+
+                AST left = stack.pop();
+                stack.push(new AST.Binop(s, left, right));
             }
             else if (isNum(s))
             {
-                countNum++;
                 stack.push(new AST.num(Double.parseDouble(s)));
             }
             else
@@ -50,7 +40,59 @@ public class Parser
                 throw new IllegalArgumentException("invalid token");
             }
         }
-        return stack.pop();
+
+        if (stack.isEmpty())
+        {
+            throw new IllegalArgumentException("insufficient operands");
+        }
+
+        AST returns = stack.pop();
+        if (!stack.isEmpty())
+        {
+            throw new IllegalArgumentException("too many operands");
+        }
+        return returns;
+    }
+
+    public static AST parseInfix(String val)
+    {
+        ArrayStack<AST> operandStack = new ArrayStack<AST>();
+        ArrayStack<String> operatorStack = new ArrayStack<AST>();
+        String[] tokens = val.split("\\s+");
+
+
+        for (int i = 0; i < tokens.length; i++)
+        {
+            String s = tokens[i];
+            if (isNum(s))
+            {
+                operandStack.push(new AST.num(Double.parseDouble(s)));
+            }
+            else if (s.equals("("))
+            {
+                operatorStack.push(s);
+            }
+            else if (s.equals(")"))
+            {
+                String change = tokens[i];
+                AST right;
+                AST left;
+                while (!change.equals("("))
+                {
+                    right = operandStack.pop();
+                    left = operandStack.pop();
+                    operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+                    change = tokens[i-1];
+                    operatorStack.pop();
+                }
+            }
+            else if (isOperator(s))
+            {
+
+            }
+        }
+
+        return;
     }
 
     private static boolean isOperator(String operands)
