@@ -57,7 +57,7 @@ public class Parser
     public static AST parseInfix(String val)
     {
         ArrayStack<AST> operandStack = new ArrayStack<AST>();
-        ArrayStack<String> operatorStack = new ArrayStack<AST>();
+        ArrayStack<String> operatorStack = new ArrayStack<String>();
         String[] tokens = val.split("\\s+");
 
 
