@@ -60,6 +60,9 @@ class ParserTest
         assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix("( 1 + 2"));
         assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix("1 + 2 )"));
         assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix(")"));
+        assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix("( + )"));
+        assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix("+ +"));
+        assertThrows(IllegalArgumentException.class, () -> Parser.parseInfix("1 + +"));
     }
 
     @Test

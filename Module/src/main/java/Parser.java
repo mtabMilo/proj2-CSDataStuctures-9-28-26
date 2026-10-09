@@ -41,11 +41,6 @@ public class Parser
             }
         }
 
-        if (stack.isEmpty())
-        {
-            throw new IllegalArgumentException("insufficient operands");
-        }
-
         AST returns = stack.pop();
         if (!stack.isEmpty())
         {

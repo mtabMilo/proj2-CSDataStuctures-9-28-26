@@ -19,13 +19,13 @@ class ASTTest
     }
 
     @Test
-    void testNumEval()
+    void NumEval()
     {
         assertEquals(5.0, five.eval());
     }
 
     @Test
-    void testBinopEval()
+    void BinopEval()
     {
         assertEquals(5.0, new AST.Binop("+", two, three).eval());
         assertEquals(2.0, new AST.Binop("-", five, three).eval());
