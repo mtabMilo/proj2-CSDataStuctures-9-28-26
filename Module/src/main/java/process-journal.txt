@@ -12,7 +12,7 @@ Log activity here
 9/30/26 - 10:00pm - 11pm
     Fixed Illegal Argument Exceptions in parser
     started parsing infix
-10/8/26 - 6:00pm -
+10/8/26 - 6:00pm - 12:13am
     Properly implemented parserInFix
     Added Testing for all of ArrayStack and BOTH parsers(?)
     Added tests for AST & eval along with eval implementation
