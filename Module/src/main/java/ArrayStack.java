@@ -2,7 +2,7 @@
 
 public class ArrayStack<T> {
     T[] theStack = (T[]) new Object[10];
-    int tail = 0; // the index after the latest item in index 1, 2, 3, null, tail = 4
+    int tail = 0; // the index after the latest item in index 1, 2, 3, null, tail = 3
 
     public void push(T val)
     {
@@ -46,6 +46,6 @@ public class ArrayStack<T> {
         {
             throw new IllegalArgumentException("The Stack is empty!");
         }
-        return tail-1;
+        return tail;
     }
 }

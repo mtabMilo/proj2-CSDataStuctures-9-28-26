@@ -54,10 +54,20 @@ public class Parser
         return returns;
     }
 
+    private static int precedence(String operator)
+    {
+        if (operator.equals("^")) {return 3;}
+        if (operator.equals("*") || operator.equals("/")) {return 2;}
+        return 1;
+    }
+
     public static AST parseInfix(String val)
     {
         ArrayStack<AST> operandStack = new ArrayStack<AST>();
         ArrayStack<String> operatorStack = new ArrayStack<String>();
+        AST right;
+        AST left;
+        int parenOpen = 0;
         String[] tokens = val.split("\\s+");
 
 
@@ -71,28 +81,104 @@ public class Parser
             else if (s.equals("("))
             {
                 operatorStack.push(s);
+                parenOpen++;
             }
             else if (s.equals(")"))
             {
-                String change = tokens[i];
-                AST right;
-                AST left;
-                while (!change.equals("("))
+                while (!operatorStack.isEmpty() && !operatorStack.peek().equals("("))
                 {
+                    if (operandStack.isEmpty())
+                    {
+                        throw new IllegalArgumentException("insufficient operands");
+                    }
+
                     right = operandStack.pop();
+
+                    if (operandStack.isEmpty())
+                    {
+                        throw new IllegalArgumentException("insufficient operands");
+                    }
+
                     left = operandStack.pop();
                     operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
-                    change = tokens[i-1];
-                    operatorStack.pop();
                 }
+                if (operatorStack.isEmpty())
+                {
+                    throw new IllegalArgumentException("mismatched close paren");
+                }
+                operatorStack.pop();
+                parenOpen--;
             }
             else if (isOperator(s))
             {
+                while (!operatorStack.isEmpty()
+                        && !operatorStack.peek().equals("(")
+                        && (precedence(operatorStack.peek()) > precedence(s)
+                        || (precedence(operatorStack.peek()) == precedence(s) && !s.equals("^"))))
+                {
+                    if (operandStack.isEmpty())
+                    {
+                        throw new IllegalArgumentException("insufficient operands");
+                    }
 
+                    right = operandStack.pop();
+
+                    if (operandStack.isEmpty())
+                    {
+                        throw new IllegalArgumentException("insufficient operands");
+                    }
+
+                    left = operandStack.pop();
+                    operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+                }
+                operatorStack.push(s);
+            }
+            else if(s.isEmpty())
+            {
+                throw new IllegalArgumentException("empty input");
+            }
+            else
+            {
+                throw new IllegalArgumentException("invalid token");
             }
         }
 
-        return;
+        if (parenOpen > 0)
+        {
+            throw new IllegalArgumentException("mismatched open paren");
+        }
+
+        while (!operatorStack.isEmpty())
+        {
+            if (operandStack.isEmpty())
+            {
+                throw new IllegalArgumentException("insufficient operands");
+            }
+
+            right = operandStack.pop();
+
+            if (operandStack.isEmpty())
+            {
+                throw new IllegalArgumentException("insufficient operands");
+            }
+
+            left = operandStack.pop();
+            operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+        }
+
+        if (operandStack.isEmpty())
+        {
+            throw new IllegalArgumentException("insufficient operands");
+        }
+
+        AST returns = operandStack.pop();
+
+        if (!operandStack.isEmpty())
+        {
+            throw new IllegalArgumentException("too many operands");
+        }
+
+        return returns;
     }
 
     private static boolean isOperator(String operands)
@@ -104,6 +190,6 @@ public class Parser
     private static boolean isNum(String operands)
     {
 
-        return operands.matches("[0-9]+");
+        return operands.matches("-?[0-9]+");
     }
 }

@@ -13,7 +13,24 @@ interface AST
     {
         public double eval()
         {
-            return 0;
+            double l = left.eval();
+            double r = right.eval();
+
+            switch (operator)
+            {
+                case "+":
+                    return l + r;
+                case "-":
+                    return l - r;
+                case "*":
+                    return l * r;
+                case "/":
+                    return l / r;
+                case "^":
+                    return Math.pow(l, r);
+                default:
+                    throw new IllegalArgumentException("Invalid Operator");
+            }
         }
     }
 }
