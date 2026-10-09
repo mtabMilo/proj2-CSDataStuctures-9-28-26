@@ -51,7 +51,7 @@ class ASTTest
     }
 }
 
-class NumTest
+class Num
 {
     AST zero, one, two, three, four, five;
 
