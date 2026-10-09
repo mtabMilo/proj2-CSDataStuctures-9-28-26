@@ -19,6 +19,12 @@ class ASTTest
     }
 
     @Test
+    void num()
+    {
+        
+    }
+
+    @Test
     void NumEval()
     {
         assertEquals(5.0, five.eval());
