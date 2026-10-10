@@ -10,18 +10,12 @@ class ASTTest
     @BeforeEach
     void setUp()
     {
-        zero = new Num(0.0);
-        one = new Num(1.0);
-        two = new Num(2.0);
-        three = new Num(3.0);
-        four = new Num(4.0);
-        five = new Num(5.0);
-    }
-
-    @Test
-    void num()
-    {
-
+        zero = new AST.Num(0.0);
+        one = new AST.Num(1.0);
+        two = new AST.Num(2.0);
+        three = new AST.Num(3.0);
+        four = new AST.Num(4.0);
+        five = new AST.Num(5.0);
     }
 
     @Test
@@ -33,31 +27,31 @@ class ASTTest
     @Test
     void BinopEval()
     {
-        assertEquals(5.0, new Binop("+", two, three).eval());
-        assertEquals(2.0, new Binop("-", five, three).eval());
-        assertEquals(6.0, new Binop("*", two, three).eval());
-        assertEquals(2.5, new Binop("/", five, two).eval());
-        assertEquals(8.0, new Binop("^", two, three).eval());
+        assertEquals(5.0, new AST.Binop("+", two, three).eval());
+        assertEquals(2.0, new AST.Binop("-", five, three).eval());
+        assertEquals(6.0, new AST.Binop("*", two, three).eval());
+        assertEquals(2.5, new AST.Binop("/", five, two).eval());
+        assertEquals(8.0, new AST.Binop("^", two, three).eval());
 
-        AST nested = new Binop("*",
-                new Binop("+", one, two),
-                new Binop("+", three, four));
-        assertEquals(21.0, new Binop("*",
-                                        new Binop("+", one, two),
-                                        new Binop("+", three, four)).eval());
+        AST nested = new AST.Binop("*",
+                new AST.Binop("+", one, two),
+                new AST.Binop("+", three, four));
+        assertEquals(21.0, new AST.Binop("*",
+                                        new AST.Binop("+", one, two),
+                                        new AST.Binop("+", three, four)).eval());
 
         assertThrows(IllegalArgumentException.class,
-                () -> new Binop("%", two, three).eval());
+                () -> new AST.Binop("%", two, three).eval());
     }
 
     @Test
     void numEvalsToItsValue() {
-        assertEquals(3.0, new Num(3.0).eval(), 1e-9);
-        assertEquals(3.0, new Num(3.0).num(), 1e-9);
+        assertEquals(3.0, new AST.Num(3.0).eval(), 1e-9);
+        assertEquals(3.0, new AST.Num(3.0).value(), 1e-9);
     }
 
     @Test
     void binopAdds() {
-        assertEquals(5.0, new Binop("+", new Num(2), new Num(3)).eval(), 1e-9);
+        assertEquals(5.0, new AST.Binop("+", new AST.Num(2), new AST.Num(3)).eval(), 1e-9);
     }
 }

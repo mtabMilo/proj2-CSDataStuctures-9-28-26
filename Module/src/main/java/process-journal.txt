@@ -16,3 +16,8 @@ Log activity here
     Properly implemented parserInFix
     Added Testing for all of ArrayStack and BOTH parsers(?)
     Added tests for AST & eval along with eval implementation
+
+10/9/26 - 9:30pm - 9:50pm
+    Tried to fix the autograder not seeing my Num and Binop bieng tested in AST
+        Unsuccessful
+    Changed num to value in AST num
