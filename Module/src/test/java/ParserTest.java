@@ -9,13 +9,13 @@ class ParserTest
     @BeforeEach
     void setUp()
     {
-        n1 = new AST.num(1.0);
-        n2 = new AST.num(2.0);
-        n3 = new AST.num(3.0);
-        n4 = new AST.num(4.0);
-        n5 = new AST.num(5.0);
-        n8 = new AST.num(8.0);
-        n16 = new AST.num(16.0);
+        n1 = new AST.Num(1.0);
+        n2 = new AST.Num(2.0);
+        n3 = new AST.Num(3.0);
+        n4 = new AST.Num(4.0);
+        n5 = new AST.Num(5.0);
+        n8 = new AST.Num(8.0);
+        n16 = new AST.Num(16.0);
     }
 
     @Test

@@ -33,7 +33,7 @@ public class Parser
             }
             else if (isNum(s))
             {
-                stack.push(new AST.num(Double.parseDouble(s)));
+                stack.push(new AST.Num(Double.parseDouble(s)));
             }
             else
             {
@@ -71,7 +71,7 @@ public class Parser
             String s = tokens[i];
             if (isNum(s))
             {
-                operandStack.push(new AST.num(Double.parseDouble(s)));
+                operandStack.push(new AST.Num(Double.parseDouble(s)));
             }
             else if (s.equals("("))
             {

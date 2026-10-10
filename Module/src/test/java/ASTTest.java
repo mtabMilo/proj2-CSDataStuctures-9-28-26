@@ -10,12 +10,12 @@ class ASTTest
     @BeforeEach
     void setUp()
     {
-        zero = new AST.num(0.0);
-        one = new AST.num(1.0);
-        two = new AST.num(2.0);
-        three = new AST.num(3.0);
-        four = new AST.num(4.0);
-        five = new AST.num(5.0);
+        zero = new AST.Num(0.0);
+        one = new AST.Num(1.0);
+        two = new AST.Num(2.0);
+        three = new AST.Num(3.0);
+        four = new AST.Num(4.0);
+        five = new AST.Num(5.0);
     }
 
     @Test
@@ -48,5 +48,16 @@ class ASTTest
 
         assertThrows(IllegalArgumentException.class,
                 () -> new AST.Binop("%", two, three).eval());
+    }
+
+    @Test
+    void numEvalsToItsValue() {
+        assertEquals(3.0, new AST.Num(3.0).eval(), 1e-9);
+        assertEquals(3.0, new AST.Num(3.0).num(), 1e-9);
+    }
+
+    @Test
+    void binopAdds() {
+        assertEquals(5.0, new AST.Binop("+", new AST.Num(2), new AST.Num(3)).eval(), 1e-9);
     }
 }
