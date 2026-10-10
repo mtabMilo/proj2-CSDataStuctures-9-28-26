@@ -29,11 +29,11 @@ public class Parser
                 }
 
                 AST left = stack.pop();
-                stack.push(new AST.Binop(s, left, right));
+                stack.push(new Binop(s, left, right));
             }
             else if (isNum(s))
             {
-                stack.push(new AST.Num(Double.parseDouble(s)));
+                stack.push(new Num(Double.parseDouble(s)));
             }
             else
             {
@@ -71,7 +71,7 @@ public class Parser
             String s = tokens[i];
             if (isNum(s))
             {
-                operandStack.push(new AST.Num(Double.parseDouble(s)));
+                operandStack.push(new Num(Double.parseDouble(s)));
             }
             else if (s.equals("("))
             {
@@ -95,7 +95,7 @@ public class Parser
                     }
 
                     left = operandStack.pop();
-                    operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+                    operandStack.push(new Binop(operatorStack.pop(), left, right));
                 }
                 if (operatorStack.isEmpty())
                 {
@@ -124,7 +124,7 @@ public class Parser
                     }
 
                     left = operandStack.pop();
-                    operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+                    operandStack.push(new Binop(operatorStack.pop(), left, right));
                 }
                 operatorStack.push(s);
             }
@@ -158,7 +158,7 @@ public class Parser
             }
 
             left = operandStack.pop();
-            operandStack.push(new AST.Binop(operatorStack.pop(), left, right));
+            operandStack.push(new Binop(operatorStack.pop(), left, right));
         }
 
         if (operandStack.isEmpty())
